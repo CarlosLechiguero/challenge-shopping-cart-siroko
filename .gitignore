@@ -47,6 +47,12 @@
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
+.env
 
 # Embedded web-server pid file
 /.web-server-pid
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
