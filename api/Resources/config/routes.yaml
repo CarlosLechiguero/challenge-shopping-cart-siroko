@@ -1,0 +1,4 @@
+shopping_cart_add_item:
+    path: /api/v1/shopping-cart/add
+    controller: Challenge\Api\Controller\AddItemShoppingCartController
+    methods: [POST]
