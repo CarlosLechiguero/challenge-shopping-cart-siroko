@@ -6,15 +6,16 @@ namespace Challenge\ShoppingCartContext\Domain\Service;
 
 use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
 use Challenge\ShoppingCartContext\Domain\ValueObject\ProductId;
+use Challenge\ShoppingCartContext\Domain\ValueObject\QuantityValue;
 use Challenge\ShoppingCartContext\Domain\Exception\ProductNotFoundException;
 
-final class RemoveProductFromCartService
+final class UpdateProductToCartService
 {
-    public function __invoke(ShoppingCart $cart, ProductId $productId): void
+    public function __invoke(ShoppingCart $cart, ProductId $productId, QuantityValue $quantity): void
     {
         foreach ($cart->items() as $item) {
             if ($item->productId->equals($productId)) {
-                $cart->removeItemEntity($item);
+                $item->setQuantity($quantity);
                 return;
             }
         }

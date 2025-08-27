@@ -25,10 +25,14 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
         $this->repository = $this->entityManager->getRepository(ShoppingCartDoctrine::class);
     }
 
-    public function save(ShoppingCart $cart): void
+    public function save(ShoppingCart $cart, bool $persist = false): void
     {
         $doctrineCart = $this->mapDomainToDoctrine($cart);
-        $this->entityManager->persist($doctrineCart);
+
+        if ($persist) {
+             $this->entityManager->persist($doctrineCart);
+        }
+
         $this->entityManager->flush();
     }
 
@@ -44,6 +48,28 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
 
         return $this->mapDoctrineToDomain($doctrineCart);
     }
+
+    public function deleteCartItem(ShoppingCart $cart): void
+    {
+        $doctrineCart = $this->repository->findOneBy([
+            'cartId' => $cart->id->value(),
+        ]);
+        
+        $targetProductId = $cart->items()[0]->productId->value();
+
+        $cartItemDoctrine = $doctrineCart->items()->filter(
+            fn(CartItemDoctrine $item) => $item->productId === $targetProductId
+        )->first();
+
+        $this->entityManager->createQueryBuilder()
+            ->delete(CartItemDoctrine::class, 'c')
+            ->where('c.id = :id')
+            ->setParameter('id', $cartItemDoctrine->id)
+            ->getQuery()
+            ->execute();
+    }
+
+
 
     private function mapDomainToDoctrine(ShoppingCart $cart): ShoppingCartDoctrine
     {

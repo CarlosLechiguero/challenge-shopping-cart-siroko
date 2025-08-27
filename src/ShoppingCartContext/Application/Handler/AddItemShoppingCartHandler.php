@@ -21,7 +21,6 @@ final class AddItemShoppingCartHandler implements QueryHandlerInterface
     /**
      * Summary of handle
      * @param AddItemShoppingCartQuery $query
-     * @return AddItemShoppingCartResponse
      */
     public function handle(AddItemShoppingCartQuery $query): AbstractResponse
     {
@@ -31,9 +30,13 @@ final class AddItemShoppingCartHandler implements QueryHandlerInterface
             foreach ($query->shoppingCart->items() as $item) {
                 ($this->addProductToCartService)($cart, $item->productId, $item->getQuantity());
             }
-        }
 
-        $this->shoppingCartRepository->save($cart);
+            $this->shoppingCartRepository->save($cart);
+            return new AddItemShoppingCartResponse($cart);
+        }
+        
+        $cart = $query->shoppingCart;
+        $this->shoppingCartRepository->save($cart, true);
         return new AddItemShoppingCartResponse($cart);
     }
 }

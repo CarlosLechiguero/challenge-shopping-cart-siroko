@@ -28,7 +28,7 @@ class ShoppingCartDoctrine
             targetEntity: CartItemDoctrine::class,
             mappedBy: "cart",
             cascade: ["persist", "remove"],
-            orphanRemoval: true
+            orphanRemoval: true,
         )]
         private Collection $items = new ArrayCollection()
     ) {}

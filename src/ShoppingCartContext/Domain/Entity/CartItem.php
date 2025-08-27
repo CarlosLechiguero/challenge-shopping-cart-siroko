@@ -20,6 +20,11 @@ final class CartItem
         return $this->quantity;
     }
 
+    public function setQuantity(QuantityValue $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
     public function increaseQuantity(QuantityValue $quantity): void
     {
         $this->quantity = $this->quantity->increase($quantity->getQuantity());

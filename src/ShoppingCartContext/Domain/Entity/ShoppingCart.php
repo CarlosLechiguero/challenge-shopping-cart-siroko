@@ -33,4 +33,9 @@ final class ShoppingCart
             fn (CartItem $i) => !$i->productId->equals($item->productId)
         );
     }
+
+    public function firstItem(): CartItem
+    {
+        return reset($this->items);
+    }
 }

@@ -1,4 +1,19 @@
 shopping_cart_add_item:
     path: /api/v1/shopping-cart/add
     controller: Challenge\Api\Controller\AddItemShoppingCartController
+    methods: [PUT]
+
+shopping_cart_list_item:
+    path: /api/v1/shopping-cart/list
+    controller: Challenge\Api\Controller\ListItemShoppingCartController
+    methods: [GET]
+
+shopping_cart_update_item:
+    path: /api/v1/shopping-cart/update
+    controller: Challenge\Api\Controller\UpdateItemShoppingCartController
     methods: [POST]
+
+shopping_cart_delete_item:
+    path: /api/v1/shopping-cart/delete
+    controller: Challenge\Api\Controller\DeleteItemShoppingCartController
+    methods: [DELETE]

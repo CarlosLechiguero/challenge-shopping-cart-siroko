@@ -12,18 +12,16 @@ use Challenge\ShoppingCartContext\Domain\ValueObject\QuantityValue;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 
-final class AddItemShoppingCartRequest
+final class ListItemShoppingCartRequest
 {
     public function __invoke(string $request): ShoppingCart
     {
-
         $request = json_decode($request, true);
-
         if (empty($request) || !is_array($request)) {
             throw new InvalidRequestException();
         }
 
-        foreach (['cartId', 'productId', 'quantity'] as $field) {
+        foreach (['cartId'] as $field) {
             if (empty($request[$field])) {
                 throw InvalidCartRequestException::missingField($field);
             }
@@ -31,11 +29,7 @@ final class AddItemShoppingCartRequest
 
         $shoppingCart = new ShoppingCart(
             new CartId($request["cartId"]),
-            [
-                new CartItem(
-                    new ProductId($request["productId"]),
-                    new QuantityValue($request["quantity"]),
-            )],
+            [],
         );
 
         return $shoppingCart;
