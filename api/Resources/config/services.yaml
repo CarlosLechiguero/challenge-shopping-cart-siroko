@@ -39,3 +39,33 @@ services:
     Challenge\SharedContext\Infrastructure\EventListener\ApiExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    shopping_cart_cache:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+        arguments:
+            - 'shopping_cart'
+            - 0
+            - '%kernel.cache_dir%'
+    Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository:
+        arguments:
+            $cache: '@shopping_cart_cache'
+            
+    Challenge\ShoppingCartContext\Application\Handler\AddItemShoppingCartHandler:
+        bind:
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
+
+    Challenge\ShoppingCartContext\Application\Handler\DeleteItemShoppingCartHandler:
+        bind:
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
+
+    Challenge\ShoppingCartContext\Application\Handler\ListItemShoppingCartHandler:
+        bind:
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
+
+    Challenge\ShoppingCartContext\Application\Handler\UpdateItemShoppingCartHandler:
+        bind:
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
+
+    Challenge\ShoppingCartContext\Application\Handler\CheckoutShoppingCartHandler:
+        bind:
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Repository\ShoppingCartDoctrineRepository'

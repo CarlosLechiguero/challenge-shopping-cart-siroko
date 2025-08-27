@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Challenge\ShoppingCartContext\Application\Request;
 
-use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
+use Challenge\ShoppingCartContext\Domain\Entity\OrderShoppingCart;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 
-final class ListItemShoppingCartRequest
+final class CheckoutShoppingCartRequest
 {
-    public function __invoke(string $request): ShoppingCart
+    public function __invoke(string $request): OrderShoppingCart
     {
         $request = json_decode($request, true);
+
         if (empty($request) || !is_array($request)) {
             throw new InvalidRequestException();
         }
@@ -24,11 +24,10 @@ final class ListItemShoppingCartRequest
             }
         }
 
-        $shoppingCart = new ShoppingCart(
-            new CartId($request["cartId"]),
-            [],
+        $orderShoppingCart = new OrderShoppingCart(
+
         );
 
-        return $shoppingCart;
+        return $orderShoppingCart;
     }
 }
