@@ -25,17 +25,15 @@ final class DeleteItemShoppingCartHandler implements QueryHandlerInterface
      */
     public function handle(DeleteItemShoppingCartQuery $query): AbstractResponse
     {
-        $cart = $this->shoppingCartRepository->find($query->shoppingCart->id);
+        $cart = $this->shoppingCartRepository->find($query->deleteProductValue->cartId);
 
         if (null === $cart) {
             throw new CartShoppingNotFoundException("Shopping Cart not found");
         }
 
-        foreach ($query->shoppingCart->items() as $item) {
-            ($this->removeProductFromCartService)($cart, $item->productId);
-        }
-
-        $this->shoppingCartRepository->deleteCartItem($query->shoppingCart);
+        ($this->removeProductFromCartService)($cart, $query->deleteProductValue->productId);
+        
+        $this->shoppingCartRepository->deleteCartItem($query->deleteProductValue->cartId, $query->deleteProductValue->productId);
         return new DeleteItemShoppingCartResponse();
     }
 }

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Challenge\SharedContext\Application\Bus\QueryBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Challenge\ShoppingCartContext\Application\Query\UpdateItemShoppingCartQuery;
+use Challenge\ShoppingCartContext\Application\Service\Parser\UpdateItemShoppingCartParser;
 use Challenge\ShoppingCartContext\Application\Handler\UpdateItemShoppingCartHandler;
 use Challenge\ShoppingCartContext\Application\Request\UpdateItemShoppingCartRequest;
 use Challenge\ShoppingCartContext\Application\Response\UpdateItemShoppingCartResponse;
@@ -17,9 +18,10 @@ use Challenge\ShoppingCartContext\Application\Response\UpdateItemShoppingCartRes
 final class UpdateItemShoppingCartController extends AbstractController
 {
     public function __construct(
-        private readonly QueryBusInterface $queryBus,
+        private readonly QueryBusInterface             $queryBus,
         private readonly UpdateItemShoppingCartRequest $updateItemShoppingCartRequest,
         private readonly UpdateItemShoppingCartHandler $updateItemShoppingCartHandler,
+        private readonly UpdateItemShoppingCartParser  $uppdateItemShoppingCartParser,
     )
     {
 
@@ -27,7 +29,7 @@ final class UpdateItemShoppingCartController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $shoppingCart = ($this->updateItemShoppingCartRequest)($request->getContent());
+        $shoppingCart = ($this->uppdateItemShoppingCartParser)(($this->updateItemShoppingCartRequest)($request->getContent()));
         /** @var UpdateItemShoppingCartResponse $response */
         $response = $this->updateItemShoppingCartHandler->handle(new UpdateItemShoppingCartQuery($shoppingCart));
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Challenge\Api\Controller;
 
+use Challenge\ShoppingCartContext\Application\Service\Parser\AddItemShoppingCartParser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Challenge\SharedContext\Application\Bus\QueryBusInterface;
@@ -16,9 +17,10 @@ use Challenge\ShoppingCartContext\Application\Response\AddItemShoppingCartRespon
 final class AddItemShoppingCartController extends AbstractController
 {
     public function __construct(
-        private readonly QueryBusInterface $queryBus,
+        private readonly QueryBusInterface          $queryBus,
         private readonly AddItemShoppingCartRequest $addItemShoppingCartRequest,
         private readonly AddItemShoppingCartHandler $addItemShoppingCartHandler,
+        private readonly AddItemShoppingCartParser  $addItemShoppingCartParser,
     )
     {
 
@@ -26,7 +28,7 @@ final class AddItemShoppingCartController extends AbstractController
 
     public function __invoke(Request $request): Response
     {       
-        $shoppingCart = ($this->addItemShoppingCartRequest)($request->getContent());
+        $shoppingCart = ($this->addItemShoppingCartParser)(($this->addItemShoppingCartRequest)($request->getContent()));
         /** @var AddItemShoppingCartResponse $response */
         $response = $this->addItemShoppingCartHandler->handle(new AddItemShoppingCartQuery($shoppingCart));
 

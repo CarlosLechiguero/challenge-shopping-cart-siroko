@@ -23,8 +23,7 @@ final class ListItemShoppingCartHandler implements QueryHandlerInterface
      */
     public function handle(ListItemShoppingCartQuery $query): AbstractResponse
     {
-
-        $cart = $this->shoppingCartRepository->find($query->shoppingCart->id);
+        $cart = $this->shoppingCartRepository->find($query->cartId);
         
         if (null === $cart) {
             throw new CartShoppingNotFoundException("Shopping Cart not found");

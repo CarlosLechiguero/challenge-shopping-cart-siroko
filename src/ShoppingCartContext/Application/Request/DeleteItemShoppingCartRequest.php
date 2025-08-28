@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Challenge\ShoppingCartContext\Application\Request;
 
-use Challenge\ShoppingCartContext\Domain\Entity\CartItem;
-use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
-use Challenge\ShoppingCartContext\Domain\ValueObject\ProductId;
-use Challenge\ShoppingCartContext\Domain\ValueObject\QuantityValue;
+use Challenge\ShoppingCartContext\Application\DTO\DeleteItemDto;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 
 final class DeleteItemShoppingCartRequest
 {
-    public function __invoke(string $request): ShoppingCart
+    public function __invoke(string $request): DeleteItemDto
     {
 
         $request = json_decode($request, true);
@@ -29,15 +25,6 @@ final class DeleteItemShoppingCartRequest
             }
         }
 
-        $shoppingCart = new ShoppingCart(
-            new CartId($request["cartId"]),
-            [
-                new CartItem(
-                    new ProductId($request["productId"]),
-                    new QuantityValue(0),
-            )],
-        );
-
-        return $shoppingCart;
+        return new DeleteItemDto($request["cartId"], $request["productId"]);
     }
 }

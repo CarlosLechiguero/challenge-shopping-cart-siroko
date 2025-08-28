@@ -6,9 +6,9 @@ namespace Challenge\ShoppingCartContext\Domain\Exception;
 
 use Challenge\SharedContext\Domain\Exception\DomainException;
 
-final class InvalidQuantityException extends DomainException
+final class InvalidIdException extends DomainException
 {
-    public function __construct(string $message = 'Invalid quantity provided')
+    public function __construct(string $message)
     {
         parent::__construct($message);
     }

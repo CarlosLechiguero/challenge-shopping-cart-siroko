@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Challenge\ShoppingCartContext\Application\Request;
 
-use Challenge\ShoppingCartContext\Domain\Entity\CartItem;
-use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
-use Challenge\ShoppingCartContext\Domain\ValueObject\ProductId;
-use Challenge\ShoppingCartContext\Domain\ValueObject\QuantityValue;
+use Challenge\ShoppingCartContext\Application\DTO\ShoppingCartDto;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 
 final class UpdateItemShoppingCartRequest
 {
-    public function __invoke(string $request): ShoppingCart
+    public function __invoke(string $request): ShoppingCartDto
     {
+
         $request = json_decode($request, true);
 
         if (empty($request) || !is_array($request)) {
@@ -28,15 +25,12 @@ final class UpdateItemShoppingCartRequest
             }
         }
 
-        $shoppingCart = new ShoppingCart(
-            new CartId($request["cartId"]),
-            [
-                new CartItem(
-                    new ProductId($request["productId"]),
-                    new QuantityValue($request["quantity"]),
-            )],
+        $addItemDto = new ShoppingCartDto(
+            $request["cartId"],
+            $request["productId"],
+            $request["quantity"],
         );
 
-        return $shoppingCart;
+        return $addItemDto;
     }
 }

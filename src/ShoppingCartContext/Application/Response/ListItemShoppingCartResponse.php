@@ -19,7 +19,7 @@ final class ListItemShoppingCartResponse extends AbstractResponse
     {
         return [
             "shoppingCart" => [
-                "cartId" => $this->shoppingCart->id->value(),
+                "cartId" => $this->shoppingCart->id->value,
                 "products" => array_map( function($item) {
                     return [
                         "productId" => $item->productId->value(),

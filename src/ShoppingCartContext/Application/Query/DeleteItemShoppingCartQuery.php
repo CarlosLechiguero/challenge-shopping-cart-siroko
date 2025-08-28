@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Challenge\ShoppingCartContext\Application\Query;
 
 use Challenge\SharedContext\Application\Query\Query;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
+use Challenge\ShoppingCartContext\Domain\ValueObject\DeleteProductValue;
 
 final class DeleteItemShoppingCartQuery extends Query
 {
     public function __construct(
-        public readonly ShoppingCart $shoppingCart
+        public readonly DeleteProductValue $deleteProductValue,
     ) {
         
     }

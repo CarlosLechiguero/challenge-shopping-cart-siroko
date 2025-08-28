@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Challenge\ShoppingCartContext\Application\Query;
 
 use Challenge\SharedContext\Application\Query\Query;
-use Challenge\ShoppingCartContext\Domain\Entity\OrderShoppingCart;
+use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
 
 final class CheckoutShoppingCartQuery extends Query
 {
     public function __construct(
-       public readonly OrderShoppingCart $orderShoppingCart,
+       public readonly CartId $cartId,
     ) {
     }
 }

@@ -20,7 +20,7 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
     private  EntityRepository $repository;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     ) {
         $this->repository = $this->entityManager->getRepository(ShoppingCartDoctrine::class);
     }
@@ -39,7 +39,7 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
     public function find(CartId $cartId): ?ShoppingCart
     {
         $doctrineCart = $this->repository->findOneBy([
-            "cartId"=> $cartId->value(),
+            "cartId"=> $cartId->value,
         ]);
 
         if (!$doctrineCart) {
@@ -49,16 +49,14 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
         return $this->mapDoctrineToDomain($doctrineCart);
     }
 
-    public function deleteCartItem(ShoppingCart $cart): void
+    public function deleteCartItem(CartId $cartId, ProductId $productId): void
     {
         $doctrineCart = $this->repository->findOneBy([
-            'cartId' => $cart->id->value(),
+            'cartId' => $cartId->value,
         ]);
         
-        $targetProductId = $cart->items()[0]->productId->value();
-
         $cartItemDoctrine = $doctrineCart->items()->filter(
-            fn(CartItemDoctrine $item) => $item->productId === $targetProductId
+            fn(CartItemDoctrine $item) => $item->productId === $productId->value()
         )->first();
 
         $this->entityManager->createQueryBuilder()
@@ -69,14 +67,11 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
             ->execute();
     }
 
-
-
     private function mapDomainToDoctrine(ShoppingCart $cart): ShoppingCartDoctrine
     {
         $doctrineCart = $this->repository->findOneBy([
-            'cartId' => $cart->id->value(),
-        ]) ?? new ShoppingCartDoctrine($cart->id->value());
-
+            'cartId' => $cart->id->value,
+        ]) ?? new ShoppingCartDoctrine($cart->id->value);
 
         $existingItems = [];
         foreach ($doctrineCart->items() as $doctrineItem) {
@@ -106,9 +101,6 @@ final class ShoppingCartDoctrineRepository implements ShoppingCartRepository
 
         return $doctrineCart;
     }
-
-
-
 
     private function mapDoctrineToDomain(ShoppingCartDoctrine $doctrineCart): ShoppingCart
     {

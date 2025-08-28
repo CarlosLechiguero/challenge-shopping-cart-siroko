@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Challenge\ShoppingCartContext\Domain\ValueObject;
 
 use Ramsey\Uuid\Uuid;
+use Challenge\ShoppingCartContext\Domain\Exception\InvalidIdException;
 
 final class ProductId
 {
@@ -12,7 +13,7 @@ final class ProductId
         private readonly string $value
     ) {
         if (!Uuid::isValid($value)) {
-            throw new \InvalidArgumentException('Invalid ProductId UUID');
+            throw new InvalidIdException('Invalid ProductId UUID');
         }
     }
 
@@ -24,10 +25,5 @@ final class ProductId
     public function equals(ProductId $other): bool
     {
         return $this->value === $other->value;
-    }
-
-    public static function generate(): self
-    {
-        return new self(Uuid::uuid4()->toString());
     }
 }

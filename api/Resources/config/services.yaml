@@ -68,4 +68,4 @@ services:
 
     Challenge\ShoppingCartContext\Application\Handler\CheckoutShoppingCartHandler:
         bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Repository\ShoppingCartDoctrineRepository'
+            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'

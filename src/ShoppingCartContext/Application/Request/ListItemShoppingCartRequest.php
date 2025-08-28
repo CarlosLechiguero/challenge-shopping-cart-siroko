@@ -4,31 +4,17 @@ declare(strict_types=1);
 
 namespace Challenge\ShoppingCartContext\Application\Request;
 
-use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
+use Challenge\ShoppingCartContext\Application\DTO\CartIdDto;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
-use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 
 final class ListItemShoppingCartRequest
 {
-    public function __invoke(string $request): ShoppingCart
+    public function __invoke(string $request): CartIdDto
     {
-        $request = json_decode($request, true);
-        if (empty($request) || !is_array($request)) {
+        if (empty($request)) {
             throw new InvalidRequestException();
         }
 
-        foreach (['cartId'] as $field) {
-            if (empty($request[$field])) {
-                throw InvalidCartRequestException::missingField($field);
-            }
-        }
-
-        $shoppingCart = new ShoppingCart(
-            new CartId($request["cartId"]),
-            [],
-        );
-
-        return $shoppingCart;
+        return new CartIdDto($request);
     }
 }

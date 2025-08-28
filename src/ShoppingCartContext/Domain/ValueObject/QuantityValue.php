@@ -25,8 +25,7 @@ final class QuantityValue
     }
 
     public function increase(int $increment): self
-{
-    return new self($this->quantity + $increment);
-}
-
+    {
+        return new self($this->quantity + $increment);
+    }
 }
