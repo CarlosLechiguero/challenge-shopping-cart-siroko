@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Challenge\ShoppingCartContext\Infrastructure\Mapper;
+namespace Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Mapper;
 
 use Challenge\ShoppingCartContext\Domain\Entity\CartItem;
 use Challenge\ShoppingCartContext\Domain\Entity\OrderShoppingCart;

@@ -50,22 +50,3 @@ services:
         arguments:
             $cache: '@shopping_cart_cache'
             
-    Challenge\ShoppingCartContext\Application\Handler\AddItemShoppingCartHandler:
-        bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
-
-    Challenge\ShoppingCartContext\Application\Handler\DeleteItemShoppingCartHandler:
-        bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
-
-    Challenge\ShoppingCartContext\Application\Handler\ListItemShoppingCartHandler:
-        bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
-
-    Challenge\ShoppingCartContext\Application\Handler\UpdateItemShoppingCartHandler:
-        bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
-
-    Challenge\ShoppingCartContext\Application\Handler\CheckoutShoppingCartHandler:
-        bind:
-            Challenge\ShoppingCartContext\Domain\Repository\ShoppingCartRepository: '@Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository'
