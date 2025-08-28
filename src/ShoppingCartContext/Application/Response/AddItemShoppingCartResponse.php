@@ -22,7 +22,7 @@ final class AddItemShoppingCartResponse extends AbstractResponse
                 "cartId" => $this->shoppingCart->id->value,
                 "products" => array_map( function($item) {
                     return [
-                        "productId" => $item->productId->value(),
+                        "productId" => $item->productId->value,
                         "quantity" => $item->getQuantity()->getQuantity(),
                     ];
                 }, $this->shoppingCart->items()),

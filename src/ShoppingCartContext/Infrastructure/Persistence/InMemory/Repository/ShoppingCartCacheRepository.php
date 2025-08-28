@@ -55,4 +55,10 @@ final class ShoppingCartCacheRepository implements ShoppingCartRepository
         $this->cache->delete($key);
         $this->cache->get($key, fn() => ShoppingCartMapper::serializeCart($existingCart));
     }
+
+    public function deleteCart(ShoppingCart $cart): void
+    {
+        $key = 'cart_' . $cart->id->value;
+        $this->cache->delete($key);
+    }
 }

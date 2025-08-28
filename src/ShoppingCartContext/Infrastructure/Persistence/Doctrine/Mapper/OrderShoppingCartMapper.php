@@ -13,16 +13,16 @@ final class OrderShoppingCartMapper
     public static function mapToDoctrine(OrderShoppingCart $order): OrderShoppingCartDoctrine
     {
         $shoppingCart = [
-            'id' => $order->cart->id,
+            'id' => $order->cart->id->value,
             'items' => array_map(
                 fn(CartItem $item) => [
-                    'product_id' => $item->productId,
+                    'product_id' => $item->productId->value,
                     'quantity'   => $item->getQuantity()->getQuantity(),
                 ],
                 $order->cart->items()
             ),
         ];
-
+         
         return new OrderShoppingCartDoctrine(
             $order->id->value,
             $shoppingCart,            

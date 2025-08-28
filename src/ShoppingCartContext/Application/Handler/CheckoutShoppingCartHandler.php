@@ -44,6 +44,7 @@ final class CheckoutShoppingCartHandler implements QueryHandlerInterface
         );
 
         $this->orderShoppingCartRepository->checkout($orderShoppingCart);
+        $this->shoppingCartRepository->deleteCart($cart);
         return new CheckoutShoppingCartResponse($orderShoppingCart);
     }
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Challenge\ShoppingCartContext\Domain\Entity\OrderShoppingCart;
 use Challenge\ShoppingCartContext\Domain\Repository\OrderShoppingCartRepository;
-use Challenge\ShoppingCartContext\Infrastructure\Mapper\OrderShoppingCartMapper;
+use Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Mapper\OrderShoppingCartMapper;
 use Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Entity\OrderShoppingCartDoctrine;
 
 final class OrderShoppingCartDoctrineRepository implements OrderShoppingCartRepository

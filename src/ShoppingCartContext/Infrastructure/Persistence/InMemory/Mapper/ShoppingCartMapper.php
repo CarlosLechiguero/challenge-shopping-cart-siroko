@@ -17,7 +17,7 @@ class ShoppingCartMapper
         return [
             'id' => $cart->id->value,
             'items' => array_map(fn(CartItem $item) => [
-                'productId' => $item->productId->value(),
+                'productId' => $item->productId->value,
                 'quantity' => $item->getQuantity()->getQuantity()
             ], $cart->items())
         ];

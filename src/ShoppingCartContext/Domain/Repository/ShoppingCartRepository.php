@@ -15,5 +15,8 @@ interface ShoppingCartRepository
     public function find(CartId $cartId): ?ShoppingCart;
 
     public function deleteCartItem(CartId $cartId, ProductId $productId): void;
+    
+    public function deleteCart(ShoppingCart $cart): void;
+    
 
 }

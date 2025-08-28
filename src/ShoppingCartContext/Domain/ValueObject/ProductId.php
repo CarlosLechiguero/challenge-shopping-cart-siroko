@@ -10,16 +10,11 @@ use Challenge\ShoppingCartContext\Domain\Exception\InvalidIdException;
 final class ProductId
 {
     public function __construct(
-        private readonly string $value
+        public readonly string $value
     ) {
         if (!Uuid::isValid($value)) {
             throw new InvalidIdException('Invalid ProductId UUID');
         }
-    }
-
-    public function value(): string
-    {
-        return $this->value;
     }
 
     public function equals(ProductId $other): bool
