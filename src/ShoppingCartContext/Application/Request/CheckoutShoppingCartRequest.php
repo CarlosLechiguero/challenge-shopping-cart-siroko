@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Challenge\ShoppingCartContext\Application\Request;
 
 use Challenge\ShoppingCartContext\Application\DTO\CartIdDto;
-use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
-use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidRequestException;
 use Challenge\ShoppingCartContext\Application\Exception\InvalidCartRequestException;
 

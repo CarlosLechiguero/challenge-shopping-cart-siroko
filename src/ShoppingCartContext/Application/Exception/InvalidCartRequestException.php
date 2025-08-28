@@ -14,6 +14,6 @@ final class InvalidCartRequestException extends ApplicationException
 
     public static function missingField(string $field): self
     {
-        return new self("El campo '$field' es obligatorio.");
+        return new self("The field $field is required.");
     }
 }
