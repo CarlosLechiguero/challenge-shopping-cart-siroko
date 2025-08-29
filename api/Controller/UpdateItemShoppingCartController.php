@@ -10,7 +10,6 @@ use Challenge\SharedContext\Application\Bus\QueryBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Challenge\ShoppingCartContext\Application\Query\UpdateItemShoppingCartQuery;
 use Challenge\ShoppingCartContext\Application\Service\Parser\UpdateItemShoppingCartParser;
-use Challenge\ShoppingCartContext\Application\Handler\UpdateItemShoppingCartHandler;
 use Challenge\ShoppingCartContext\Application\Request\UpdateItemShoppingCartRequest;
 use Challenge\ShoppingCartContext\Application\Response\UpdateItemShoppingCartResponse;
 
@@ -20,7 +19,6 @@ final class UpdateItemShoppingCartController extends AbstractController
     public function __construct(
         private readonly QueryBusInterface             $queryBus,
         private readonly UpdateItemShoppingCartRequest $updateItemShoppingCartRequest,
-        private readonly UpdateItemShoppingCartHandler $updateItemShoppingCartHandler,
         private readonly UpdateItemShoppingCartParser  $uppdateItemShoppingCartParser,
     )
     {
@@ -31,7 +29,7 @@ final class UpdateItemShoppingCartController extends AbstractController
     {
         $shoppingCart = ($this->uppdateItemShoppingCartParser)(($this->updateItemShoppingCartRequest)($request->getContent()));
         /** @var UpdateItemShoppingCartResponse $response */
-        $response = $this->updateItemShoppingCartHandler->handle(new UpdateItemShoppingCartQuery($shoppingCart));
+        $response = $this->queryBus->ask(new UpdateItemShoppingCartQuery($shoppingCart));
 
         return new Response(
             json_encode($response->getResponse()),
