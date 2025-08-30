@@ -40,8 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Challenge\\Test\\": "tests/"
-
+            "Challenge\\Test\\": "tests/Unit"
         }
     },
     "replace": {
