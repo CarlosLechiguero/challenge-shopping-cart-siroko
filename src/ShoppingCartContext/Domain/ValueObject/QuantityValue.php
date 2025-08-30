@@ -12,7 +12,7 @@ final class QuantityValue
     public function __construct(
         private int $quantity
     ) {
-        if ($quantity < 0) {
+        if ($quantity <= 0) {
             throw new InvalidQuantityException('Quantity must be greater than 0');
         }
 

@@ -47,6 +47,7 @@ final class AddItemShoppingCartHandlerTest extends TestCase
             ->with($query->shoppingCart->id)
             ->willReturn($existingCart);
 
+        /** @var AddItemShoppingCartResponse $response  */
         $response = $this->addProductToCartHandler->handle($query);
 
         $this->assertInstanceOf(AddItemShoppingCartResponse::class, $response);
