@@ -8,17 +8,15 @@ use DateTimeImmutable;
 use Challenge\ShoppingCartContext\Domain\ValueObject\OrderId;
 use Challenge\ShoppingCartContext\Domain\ValueObject\AmountValue;
 
-final class OrderShoppingCart
+final readonly class OrderShoppingCart
 {
-    private array $items;
-
     public function __construct(
-        public readonly OrderId $id,
-        public readonly ShoppingCart $cart,
-        public readonly AmountValue $amount,
-        public readonly DateTimeImmutable $createdAt = new DateTimeImmutable(),
+        public OrderId $id,
+        public ShoppingCart $cart,
+        public AmountValue $amount,
+        public DateTimeImmutable $createdAt = new DateTimeImmutable(),
     ) {
-        $this->items = $cart->items();
+
     }
 
 }

@@ -1,13 +1,12 @@
 doctrine:
     dbal:
-        driver: '%env(DB_DRIVER)%'
-        host: '%env(DB_HOST)%'
-        port: '%env(DB_PORT)%'
-        dbname: '%env(DB_NAME)%'
-        user: '%env(DB_USER)%'
-        password: '%env(DB_PASSWORD)%'
-        charset: '%env(DB_CHARSET)%'
-        server_version: '%env(DB_VERSION)%'
+        driver: 'pdo_mysql'
+        host: '%env(resolve:DB_HOST)%'
+        port: '%env(resolve:DB_PORT)%'
+        dbname: '%env(resolve:DB_DATABASE)%'
+        user: '%env(resolve:DB_USER)%'
+        password: '%env(resolve:DB_PASSWORD)%'
+        charset: UTF8
 
     orm:
         auto_generate_proxy_classes: true

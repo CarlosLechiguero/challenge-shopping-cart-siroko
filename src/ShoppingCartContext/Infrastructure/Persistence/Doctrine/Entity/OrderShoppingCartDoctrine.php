@@ -9,25 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'order_shopping_cart')]
-final class OrderShoppingCartDoctrine
+final readonly class OrderShoppingCartDoctrine
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    public readonly int $id;
+    public int $id;
 
     public function __construct(
         #[ORM\Column(type: Types::STRING, length: 36)]
-        public readonly string $orderId,
+        public string $orderId,
 
         #[ORM\Column(type: Types::JSON)]
-        public readonly array $cart,
+        public array $cart,
 
         #[ORM\Column(type: Types::FLOAT)]
-        public readonly float $amount,
+        public float $amount,
 
         #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-        public readonly \DateTimeImmutable $createdAt,
+        public \DateTimeImmutable $createdAt,
     ) {
     }
 }
