@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Challenge\Api\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Challenge\SharedContext\Application\Bus\QueryBusInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Challenge\ShoppingCartContext\Application\Query\UpdateItemShoppingCartQuery;
+use Challenge\ShoppingCartContext\Application\Service\Parser\UpdateItemShoppingCartParser;
+use Challenge\ShoppingCartContext\Application\Request\UpdateItemShoppingCartRequest;
+use Challenge\ShoppingCartContext\Application\Response\UpdateItemShoppingCartResponse;
+
+
+final class UpdateItemShoppingCartController extends AbstractController
+{
+    public function __construct(
+        private readonly QueryBusInterface             $queryBus,
+        private readonly UpdateItemShoppingCartRequest $updateItemShoppingCartRequest,
+        private readonly UpdateItemShoppingCartParser  $uppdateItemShoppingCartParser,
+    )
+    {
+
+    }
+
+    public function __invoke(Request $request): Response
+    {
+        $shoppingCart = ($this->uppdateItemShoppingCartParser)(($this->updateItemShoppingCartRequest)($request->getContent()));
+        /** @var UpdateItemShoppingCartResponse $response */
+        $response = $this->queryBus->ask(new UpdateItemShoppingCartQuery($shoppingCart));
+
+        return new Response(
+            json_encode($response->getResponse()),
+            Response::HTTP_OK
+        );
+    }
+}

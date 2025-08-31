@@ -1,21 +1,11 @@
-FROM php:8.2-fpm-alpine as challenge_php
+FROM php:8.2-fpm-alpine as challenge-php
 
-# Instalar dependencias necesarias para PHP y Symfony
-RUN apk add --no-cache \
-    git \
-    unzip \
-    icu-dev \
-    oniguruma-dev \
-    libxml2-dev \
-    libzip-dev \
-    zip \
-    curl \
-    autoconf \
-    build-base \
-    bash \
-    && docker-php-ext-install intl mbstring pdo_mysql zip opcache
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && apk add --no-cache libmemcached-dev zlib-dev
 
-# Instalar Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN pecl install memcached \
+    && docker-php-ext-enable memcached
 
-WORKDIR /var/www/html
+RUN docker-php-ext-install mysqli pdo pdo_mysql opcache
+
+RUN apk del -f .build-deps
