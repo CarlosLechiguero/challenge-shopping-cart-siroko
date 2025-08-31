@@ -27,7 +27,7 @@ final class CheckoutShoppingCartResponse extends AbstractResponse
                     ];
                 },  $this->orderShoppingCart->cart->items()),
                 "totalAmount" =>  $this->orderShoppingCart->amount->value . " €",
-                "createdAt" => $this->orderShoppingCart->createdAt->format("yyyy-mm-dd H:i:s"),
+                "createdAt" => $this->orderShoppingCart->createdAt->format("Y-m-d H:i:s"),
             ]
         ];
     }
