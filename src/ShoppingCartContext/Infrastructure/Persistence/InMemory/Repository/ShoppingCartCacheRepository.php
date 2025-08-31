@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository;
 
-use Symfony\Contracts\Cache\CacheInterface;
 use Challenge\ShoppingCartContext\Domain\Entity\CartItem;
 use Challenge\ShoppingCartContext\Domain\ValueObject\CartId;
 use Challenge\ShoppingCartContext\Domain\Entity\ShoppingCart;
@@ -15,50 +14,36 @@ use Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Mapper\Sho
 
 final class ShoppingCartCacheRepository implements ShoppingCartRepository
 {
+
     public function __construct(
-        private readonly CacheInterface $cache,
+        private \Memcached $memcached
     ) {
+
     }
 
     public function save(ShoppingCart $cart, bool $persist = false): void
     {
-        $key = 'cart_' . $cart->id->value;
-
-        $this->cache->delete($key);
-        $this->cache->get($key, fn() => ShoppingCartMapper::serializeCart($cart));
+        $this->memcached->set('cart_' . $cart->id->value, ShoppingCartMapper::serializeCart($cart));
     }
 
     public function find(CartId $cartId): ?ShoppingCart
     {
-        $key = 'cart_' . $cartId->value;
-        $inCacheShoppingCart = $this->cache->get($key, fn() => null);
-
-        if (null === $inCacheShoppingCart) {
-            return null;
-        }
-
-        return ShoppingCartMapper::unserializeCart($inCacheShoppingCart);
+        $data = $this->memcached->get('cart_' . $cartId->value);
+        return $data ? ShoppingCartMapper::unserializeCart($data) : null;
     }
 
     public function deleteCartItem(CartId $cartId, ProductId $productId): void
     {
-        $key = 'cart_' . $cartId->value;
-        $inCacheShoppingCart = $this->cache->get($key, fn() => null);
+        $cart = $this->find($cartId);
 
-        $existingCart = ShoppingCartMapper::unserializeCart($inCacheShoppingCart);
-        $targetItem = new CartItem(
-            $productId, 
-            new QuantityValue(0)
-        );
+        $targetItem = new CartItem($productId, new QuantityValue(1));
+        $cart->removeItemEntity( $targetItem);
 
-        $existingCart->removeItemEntity(item: $targetItem);
-        $this->cache->delete($key);
-        $this->cache->get($key, fn() => ShoppingCartMapper::serializeCart($existingCart));
+        $this->save($cart);
     }
 
     public function deleteCart(ShoppingCart $cart): void
     {
-        $key = 'cart_' . $cart->id->value;
-        $this->cache->delete($key);
+        $this->memcached->delete('cart_' . $cart->id->value);
     }
 }

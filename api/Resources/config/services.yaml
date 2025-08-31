@@ -40,13 +40,15 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-    shopping_cart_cache:
-        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
-        arguments:
-            - 'shopping_cart'
-            - 0
-            - '%kernel.cache_dir%'
+    app.memcached:
+        class: Memcached
+        calls:
+            - method: addServer
+              arguments:
+                  - 'memcached'
+                  - 11211
+
     Challenge\ShoppingCartContext\Infrastructure\Persistence\InMemory\Repository\ShoppingCartCacheRepository:
         arguments:
-            $cache: '@shopping_cart_cache'
+            $memcached: '@app.memcached'
             

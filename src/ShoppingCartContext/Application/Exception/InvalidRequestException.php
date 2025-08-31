@@ -9,6 +9,6 @@ use Challenge\SharedContext\Application\Exception\ApplicationException;
 final class InvalidRequestException extends ApplicationException
 {
     public function __construct(string $message = "Invalid request") {
-        parent::__construct($message, 400);
+        parent::__construct($message);
     }
 }

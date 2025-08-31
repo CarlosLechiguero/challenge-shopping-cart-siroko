@@ -50,5 +50,11 @@ services:
     working_dir: /app
     command: ["composer", "install"]
 
+  memcached:
+    image: memcached:1.6
+    container_name: challenge_memcached
+    ports:
+      - "11211:11211"
+
 volumes:
   db_data:

@@ -9,7 +9,7 @@ use Challenge\SharedContext\Application\Exception\ApplicationException;
 final class InvalidCartRequestException extends ApplicationException
 {
     public function __construct(string $message) {
-        parent::__construct($message, 400);
+        parent::__construct($message);
     }
 
     public static function missingField(string $field): self
