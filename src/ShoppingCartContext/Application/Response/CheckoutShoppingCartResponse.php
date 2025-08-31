@@ -12,10 +12,10 @@ final class CheckoutShoppingCartResponse extends AbstractResponse
     public function __construct(
         public readonly OrderShoppingCart $orderShoppingCart,
     ) {
-
+        parent::__construct();
     }
 
-    public function getResponse(): array
+    public function getData(): array
     {
         return [
             "orderShoppingCart" => [

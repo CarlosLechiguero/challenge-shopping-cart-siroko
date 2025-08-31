@@ -36,7 +36,7 @@ services:
         resource: '%kernel.project_dir%/api/Controller/*Controller.php'
         tags: ['controller.service_arguments']
 
-    Challenge\SharedContext\Infrastructure\EventListener\ApiExceptionListener:
+    Challenge\Api\EventListener\ApiExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
