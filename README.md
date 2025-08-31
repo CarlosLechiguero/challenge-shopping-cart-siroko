@@ -9,16 +9,18 @@ Diseño una cesta de compra (carrito) que permita a cualquier persona interesada
 - Composer
 - MySQL 8.0
 
-## Instalación / Levantar el proyecto / Ejecución de test
+## Instalación / Levantar el proyecto / Probar la API
+### 1. Clonar el repositorio
+    `git clone <[repo].git>`
 
-1. Clonar el repositorio
-`git clone <[repo].git>`
+### 2. Levantar el proyecto
+    `docker-compose up -d`
 
-2. Levantar el proyecto
-`docker-compose up -d`
+### 3. API
+    En la raíz del proyecto se incluye una colección de Postman (Siroko-Challenge) lista para importar, que permite probar fácilmente la funcionalidad de la API.
 
-3. Ejecución de test
-`docker-compose exec php vendor/bin/phpunit`
+### 4. Ejecución de test
+    `docker-compose exec php vendor/bin/phpunit`
 
 ## Presentación
 
