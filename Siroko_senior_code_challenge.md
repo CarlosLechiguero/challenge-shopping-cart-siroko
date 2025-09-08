@@ -1,6 +1,6 @@
 # Siroko **Senior** Code Challenge
 
-Siroko es una marca que vende productos de deporte - especialmente relacionados con ciclismo y fitness - a través de su plataforma *e-commerce*.
+Siroko es una marca que vende productos de deporte - especialmente relacionados con ciclismo y fitness - a través de su plataforma *e -commerce*.
 
 Como parte de la plataforma, necesitamos diseñar una **cesta de compra (carrito)** que permita a cualquier persona interesada comprar de forma **rápida** y **eficiente** y, a continuación, **completar el proceso de pago** generando una **orden**.
 
@@ -15,7 +15,7 @@ Tu misión consiste en iniciar el desarrollo de ese **carrito + checkout**, que 
 - Gestión de productos que permita **añadir, actualizar y eliminar** ítems del carrito.
 - Obtener productos del carrito.
 - **Procesar el pago** (checkout) y generar una **orden** persistente al confirmar la compra.
-- El diseño de dominio es libre, siempre que el mismo está **desacoplado** del framework.
+- El diseño de dominio es libre, siempre que el mismo esté **desacoplado** del framework.
 
 ---
 
@@ -29,7 +29,7 @@ Tu misión consiste en iniciar el desarrollo de ese **carrito + checkout**, que 
 6. **Performance, performance, performance**...medida y justificada con datos.  
 7. No valoraremos la **UI**; concéntrate en la **API**.  
 8. Symfony framework, dominio desacoplado del mismo.  
-9. Uso sólido de **Git** y un historial de commits comprensible (feature branches + PR).
+9. Uso sólido de **Git** y un historial de commits comprensible (feature branches + PR).  
 
 Si algo no está claro, **pregunta**.
 
@@ -43,10 +43,9 @@ Sube el código a un repositorio público y añade en el **README**:
 - OpenAPI Specification.
 - Modelado del dominio.
 - Tecnología utilizada.
-- Instrucciones para levantar el entorno con `docker-compose up`.  
+- Instrucciones para levantar el entorno con `docker -compose up`.  
 - Comando para lanzar los tests.
 
 ---
 
-*�Manos a la obra y suerte!*
-
+*¡Manos a la obra y suerte!*

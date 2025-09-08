@@ -1,9 +1,12 @@
 doctrine:
     dbal:
         driver: 'pdo_mysql'
-        server_version: '8.0'
-        charset: utf8mb4
-        url: '%env(resolve:DATABASE_URL)%'
+        host: '%env(resolve:DB_HOST)%'
+        port: '%env(resolve:DB_PORT)%'
+        dbname: '%env(resolve:DB_DATABASE)%'
+        user: '%env(resolve:DB_USER)%'
+        password: '%env(resolve:DB_PASSWORD)%'
+        charset: UTF8
 
     orm:
         auto_generate_proxy_classes: true
@@ -13,8 +16,8 @@ doctrine:
             ChallengeInfrastructure:
                 is_bundle: false
                 type: attribute
-                dir: '%kernel.project_dir%/src/ShoppingCartContext/Infrastructure/Persistence'
-                prefix: 'Challenge\Infrastructure\Persistence'
+                dir: '%kernel.project_dir%/src/ShoppingCartContext/Infrastructure/Persistence/Doctrine/Entity'
+                prefix: 'Challenge\ShoppingCartContext\Infrastructure\Persistence\Doctrine\Entity'
                 alias: ChallengePersistence
 
 when@test:
